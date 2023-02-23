@@ -14,9 +14,16 @@ Obiter 8 client built on Vue 3 and Ethersjs
 
  - [Client Development Readme](./client/README.md)
 
+Live Demo:
+https://orbiter8.space
+
 ## Game Contacts
 
 This project does not yet contain any iterations or imrpovements on Orbiter 8's contracts since the release of demo 3.
 
  - [EVM Development Readme](./client/README.md)
 
+
+## Contribute
+
+ - [How To Contribute](./docs/contribute.md)
