@@ -121,8 +121,11 @@ export default {
       </g>
     </g>
   </g>
-  <g>
+
+  <g :transform="'translate(' + (screen.left + 10) + ' ' + (screen.bottom - 30) + ')'">
+    <text text-anchor="start" font-size="18px">Version 3.01</text>
   </g>
+
 </template>
 
 <style scoped>
