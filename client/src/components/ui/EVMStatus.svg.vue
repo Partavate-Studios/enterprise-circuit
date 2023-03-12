@@ -84,7 +84,7 @@ export default {
       <g font-size="12px" >
         <g fill="#999999">
           <text transform="translate(0 0)" >
-            offline
+            network offline
           </text>
         </g>
       </g>

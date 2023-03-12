@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import networkSelect from './EVMNetworkSelect.svg.vue'
 
+import MinervaScreen from '../assets/sprites/MinervaScreen.svg.vue'
+
 import btn from './widgets/button-basic.svg.vue'
 import LogoMetaMask from '../assets/sprites/LogoMetaMask.svg.vue'
 import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
@@ -90,8 +92,22 @@ export default {
   </g>
 
   <g v-if="!evm.isConnected">
-    <g transform="translate(-200 -200)">
-      <LogoMetaMask transform="scale(4) " />
+    <g transform="translate(-250 -250)">
+    <g>
+      <rect
+        x="-100" y="-20"
+        width="720"
+        height="140"
+        rx="10"
+        ry="10"
+        fill="#280b4b"
+        fill-opacity="1"
+        stroke="#ffffff"
+        stroke-width="1"
+        stroke-opacity="0.25"
+      />
+    </g>
+      <MinervaScreen />
     </g>
     <g transform="translate(-100 -220)">
       <text text-anchor="start">Connect Wallet</text>
@@ -122,10 +138,13 @@ export default {
         <g transform="translate(0 60)">
           <text>For the best experience, download Metamask.</text>
         </g>
+        <g transform="translate(240 140)">
+          <LogoMetaMask transform="scale(3  ) " class="canclick" @click="openNewWindow('https://metamask.io/download/')" />
+        </g>
         <btn
           font-size="24"
           text-anchor="middle"
-          transform="translate(240 140)"
+          transform="translate(240 220)"
           :width="250"
           :height="40"
           @click="openNewWindow('https://metamask.io/download/')"
@@ -137,13 +156,16 @@ export default {
           <text>We detected your wallet and are attempting to connect.</text>
         </g>
         <g transform="translate(0 60)">
-          <text>If you do not see a connection dialogue, click retry.</text>
+          <text>You may need to unlock your wallet with a passcode.</text>
+        </g>
+        <g transform="translate(0 90)">
+          <text>If you still do not see a connection dialogue, click retry.</text>
         </g>
         <btn
           font-size="24"
           text-anchor="middle"
-          transform="translate(240 120)"
-          :width="250"
+          transform="translate(240 140)"
+          :width="180"
           :height="40"
           @click="evm.connect()"
           text="Retry"
