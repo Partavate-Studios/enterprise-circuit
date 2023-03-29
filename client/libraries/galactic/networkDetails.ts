@@ -161,6 +161,26 @@ const networks =  {
       url: 'https://testnet.binance.org/faucet-smart/'
     }]
   },
+
+  '599': {
+    name: 'Goerli Metis Test',
+    shortName: 'Metis Test',
+    description: '',
+    id: '599',
+    hexId: '0x257',
+    currency: {
+      name: 'Metis',
+      symbol: 'MET',
+      decimals: 18
+    },
+    rpc: ['https://goerli.gateway.metisdevops.link'],
+    explorer:['https://goerli.explorer.metisdevops.link'],
+    faucets: [{
+      name: 'Goerli Faucet',
+      url: 'https://goerli.faucet.metisdevops.link/'
+    }]
+  },
+
   '1284': {
     name: 'Moonbeam',
     shortName: 'Moonbeam',
@@ -260,6 +280,27 @@ const networks =  {
     explorer: [''],
     faucets: []
   },
+  '71401': {
+    name: 'Godworken Testnet',
+    shortName: 'Godwoken',
+    id: '71401',
+    hexId: '0x116E9',
+    currency: {
+      name: 'Polyjuice',
+      symbol: 'pCKB',
+      decimals: 18
+    },
+    rpc: ['https://v1.testnet.godwoken.io/rpc'],
+    explorer: ['https://v1.testnet.gwscan.com/'],
+    faucets: [{
+      name: 'Nervos Faucet',
+      url: 'https://faucet.nervos.org/'
+    }, {
+      name: 'Godwoken Bridge',
+      url: 'https://testnet.bridge.godwoken.io/'
+    }]
+
+  },
   '80001': {
     name: 'Polygon Mumbai Testnet',
     shortName: 'Mumbai',
@@ -292,6 +333,23 @@ const networks =  {
     rpc: ['https://goerli-rollup.arbitrum.io/rpc'],
     explorer: ['https://testnet.arbiscan.io'],
     faucets: []
+  },
+  '381932': {
+    name: 'Metal Tahoe C-Chain',
+    shortName: 'Metal',
+    id: '381932',
+    hexId: '0x5D3EC',
+    currency: {
+      name: 'METAL',
+      symbol: 'METAL',
+      decimals: 18
+    },
+    rpc: ['https://tahoe.metalblockchain.org/ext/bc/C/rpc'],
+    explorer: ['https://tahoe.metalscan.io/'],
+    faucets: [{
+      name: 'Proton Dev Telegram',
+      url: 'https://t.me/protonxpr/'
+    }]
   },
   '11155111': {
     name: 'Sepolia Testnet',

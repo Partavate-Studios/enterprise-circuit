@@ -64,7 +64,7 @@ export default {
         rx="10" ry="10" />
 
     <g transform="scale(1)">
-      <g :transform="'translate(-270 ' + (networkCount * -35 ) + ')'">
+      <g transform="translate(-270 -300)">
         <g v-for="(network, key, index) in deployments" :transform="'translate(0 ' + index * 60 + ')'" @mouseenter="this.hoverId = key" @mouseleave="this.hoverId = null">
           <btn :val="key"
             :width="(evm.chainId == key) ? 230 : 210" :height="48"

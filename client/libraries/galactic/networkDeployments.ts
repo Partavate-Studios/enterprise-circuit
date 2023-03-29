@@ -23,6 +23,14 @@ const deployments =  {
     'PlanetTokens': '0x27Fb3Be712E0FDEC4667b1B067Af04b74e458f3B',
     'ShipTokens': '0x1fc61Ed0dc2E3340c31839c8A1A87bd9e1fA3CFD'
   },
+  //Metis
+  "599": {
+    'AvatarControls':'0x2460ED133589F70254f18277F42EDF539221C747',
+    'Credits':'0x327daFE07e66150d10a060bFD57b75996b940911import ＋swap ⇄',
+    'Galaxy':'0xdd86445C07e140f284eE10A4c39dF7C568d88865',
+    'PlanetTokens':'0x1C67109Cf6407E3304066d12b24cD10309151456',
+    'ShipTokens':'0x0f93785633fc437fDFcC707cc8c222F753486Ebc'
+  },
   //Moonriver Alpha
   "1285": {
     'AvatarControls': '0x2460ED133589F70254f18277F42EDF539221C747',
@@ -47,6 +55,14 @@ const deployments =  {
     'PlanetTokens': '0x4dEdce8EDCD60ED9dA91b55c1E9e76e23830535d',
     'ShipTokens': '0x7a8950c192842820e0C12841DD52187896Db6030'
   },
+  //Godwoken
+  "71401": {
+    'Credits':'0x44Dc0Bc59AdFa0F8BEcCA7bF76166be21Cf2c9D7',
+    'PlanetTokens':'0x5B6F0E2EcAc6452AB5Ab2822De2834E30258421E',
+    'ShipTokens':'0x68a3b9A352eD572ae0a955Ce1C1efa18978C7269',
+    'AvatarControls':'0x7Aa32471800488b9eC3693c35332CCbAfBb669AC',
+    'Galaxy':'0xcA364F2EFE7c87f58A9988F7512A86b4b474D419'
+  },
   //Mumbai
   "80001": {
     'AvatarControls': '0x137E576D7A22935e0FE33108Af39757a2957938B',
@@ -63,7 +79,15 @@ const deployments =  {
     'PlanetTokens': '0x2fceAd2954C53Cdc35a2E2D3C8d9d11a847D2842',
     'ShipTokens': '0xd748Eb47D5D9521C19EE8D08BC606893616ed764'
   },
-  //Arbitrum
+  //Metal
+  "381932": {
+    'AvatarControls':'0x2460ED133589F70254f18277F42EDF539221C747',
+    'Credits':'0xAAfE231A3BD8f82E9046b00BF8dFe81d6D6AC0a6',
+    'Galaxy':'0x0f93785633fc437fDFcC707cc8c222F753486Ebc',
+    'PlanetTokens':'0x982c6607390f260235b9e6E6E2a156567F91CDD4',
+    'ShipTokens':'0x9d5A16F2f7CB152CD0fc29f2659c77ACc808fb8a',
+  },
+  //Sepolia
   "11155111": {
     'AvatarControls': '0x1bde28Bf4e0224A72EbC309992B0A5b32262b47A',
     'Credits': '0x3093022a0bfD02cFf56CD5B87809027BF88731cE',

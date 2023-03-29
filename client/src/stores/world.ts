@@ -30,6 +30,7 @@ export const useWorld = defineStore('world', {
       sprites: [] as Sprite[],
       updating: false,
       zoomLevel: 1,
+      lastBlockLoaded: 0,
       viewPoint: {
         x: 0,
         y: 0,
@@ -49,13 +50,15 @@ export const useWorld = defineStore('world', {
   },
   getters: {
     getViewPoint():Coords {
-
+      //todo viewPoint isn't the best variable name
       let x = this.viewPoint.x
       let y = this.viewPoint.y
-      if (this.selectedSprite!= null) {
+
+      if (this.selectedSprite != null) {
         x = this.sprites[this.selectedSprite].position.x * -1,
         y = this.sprites[this.selectedSprite].position.y * -1
       }
+      //todo: I don't love this implementation of tweens
       return {
         x: x + this.tweens.x,
         y: y + this.tweens.y
@@ -85,9 +88,13 @@ export const useWorld = defineStore('world', {
     isConnected():boolean {
       return (this.avatar.isConnected && this.galaxy.isConnected)
     },
+    unloadedBlock():boolean {
+      return (this.lastBlockLoaded != this.evm.block)
+    }
   },
   actions: {
     async loadFromNetwork() {
+      let currentBlock = this.evm.block
       await Promise.all([
         this.avatar.getAll(),
         this.galaxy.getAll()
@@ -95,6 +102,7 @@ export const useWorld = defineStore('world', {
       await this.avatar.preloadForAddresses(
         this.galaxy.knownAddresses
       )
+      this.lastBlockLoaded = currentBlock
     },
     newWorldZoom() {
       this.zoomLevel = 2

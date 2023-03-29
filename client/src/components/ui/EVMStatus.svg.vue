@@ -62,11 +62,8 @@ export default {
             <text v-else-if="world.isLoaded" transform="translate(10 -8)" >
               Loaded
             </text>
-              {{  }}
-              {{ world.avatar.isLoading }}
-              {{ world.galaxy.isLoading }}
-            <g transform="translate(2 8)" stroke="#ffffff" stroke-width="1">
-              <g transform="translate(16 0)" :fill-opacity="world.isLoading ? 1 : 0">
+            <g transform="translate(2 8)" stroke="#ffffff" stroke-width="0.5">
+              <g transform="translate(16 0)" :fill-opacity="world.unloadedBlock ? 1 : 0">
                 <circle r="4" />
               </g>
               <g transform="translate(32 0)" :fill-opacity="world.isLoading ? 1 : 0">
