@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import networkSelect from './EVMNetworkSelect.svg.vue'
+import connectionIndicator from './widgets/connectionIndicator.svg.vue'
 
 import btn from './widgets/button-basic.svg.vue'
 import LogoMetaMask from '../assets/sprites/LogoMetaMask.svg.vue'
 import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
+import LogoOrbiter8 from '../assets/sprites/LogoOrbiter8.svg.vue'
 import { mapState } from 'pinia'
 
 import { useUI } from '../../stores/ui'
@@ -90,6 +92,14 @@ export default {
   </g>
 
   <g v-if="!evm.isConnected">
+
+    <g :transform="'translate(0 ' + (screen.top + 120)  + ')'">
+    <connectionIndicator 
+      :walletConnected="evm.hasWallet"
+      :networkConnected="false"
+    />
+  </g>
+  
     <g transform="translate(-200 -200)">
       <LogoMetaMask transform="scale(4) " />
     </g>
