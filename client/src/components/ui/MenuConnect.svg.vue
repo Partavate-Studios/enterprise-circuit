@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import networkSelect from './EVMNetworkSelect.svg.vue'
+import connectionIndicator from './widgets/connectionIndicator.svg.vue'
 
 import MinervaScreen from '../assets/sprites/MinervaScreen.svg.vue'
 
 import btn from './widgets/button-basic.svg.vue'
 import LogoMetaMask from '../assets/sprites/LogoMetaMask.svg.vue'
 import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
+import LogoOrbiter8 from '../assets/sprites/LogoOrbiter8.svg.vue'
 import { mapState } from 'pinia'
 
 import { useUI } from '../../stores/ui'
@@ -92,39 +94,46 @@ export default {
   </g>
 
   <g v-if="!evm.isConnected">
-    <g transform="translate(-250 -250)">
-    <g>
-      <rect
-        x="-100" y="-20"
-        width="720"
-        height="140"
-        rx="10"
-        ry="10"
-        fill="#280b4b"
-        fill-opacity="1"
-        stroke="#ffffff"
-        stroke-width="1"
-        stroke-opacity="0.25"
+    <g :transform="'translate(0 ' + (screen.top + 120)  + ')'">
+      <connectionIndicator 
+        :walletConnected="evm.hasWallet"
+        :networkConnected="false"
       />
     </g>
-      <MinervaScreen />
-    </g>
-    <g transform="translate(-100 -220)">
-      <text text-anchor="start">Connect Wallet</text>
-    </g>
-
-    <g transform="translate(0 -170)" font-size="20px">
+    
+      <g transform="translate(-250 -250)">
       <g>
-        <text text-anchor="end" fill="#888888">Status:</text>
+        <rect
+          x="-100" y="-20"
+          width="720"
+          height="140"
+          rx="10"
+          ry="10"
+          fill="#280b4b"
+          fill-opacity="1"
+          stroke="#ffffff"
+          stroke-width="1"
+          stroke-opacity="0.25"
+        />
       </g>
-      <g transform="translate(10 0)">
-        <g v-if="evm.hasWallet">
-          <text text-anchor="start" fill="#88ff88">Wallet available.</text>
+        <MinervaScreen />
+      </g>
+      <g transform="translate(-100 -220)">
+        <text text-anchor="start">Connect Wallet</text>
+      </g>
+
+      <g transform="translate(0 -170)" font-size="20px">
+        <g>
+          <text text-anchor="end" fill="#888888">Status:</text>
         </g>
-        <g v-if="!evm.hasWallet">
-          <text text-anchor="start" fill="#ff8888">No wallet detected.</text>
-        </g>
-    </g>
+        <g transform="translate(10 0)">
+          <g v-if="evm.hasWallet">
+            <text text-anchor="start" fill="#88ff88">Wallet available.</text>
+          </g>
+          <g v-if="!evm.hasWallet">
+            <text text-anchor="start" fill="#ff8888">No wallet detected.</text>
+          </g>
+      </g>
     </g>
 
     <g transform="translate(-240 -80)" text-anchor="start" font-size="20px" fill="#aaaaaa">

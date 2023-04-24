@@ -1,6 +1,6 @@
 <template>
 <g>
-  <g transform="translate(-45 -110)" stroke="#ffffff" stroke-width="2" fill-rule="nonzero" >
+  <g transform="translate(-45 -75)" stroke="#ffffff" stroke-width="2" fill-rule="nonzero" >
 
   <path
      d="M 46.22125,55.68413 0,76.69288 46.22125,104.01413 92.4425,76.69288 46.22125,55.68413 z"
