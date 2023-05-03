@@ -3,6 +3,7 @@
 import Profile from './widgets/profile.svg.vue'
 import System from './widgets/system.svg.vue'
 import ZoomSlider from './widgets/zoomSlider.svg.vue'
+import MiniMap from './widgets/MiniMap.svg.vue'
 
 import AvatarIcon from './icons/avatar.svg.vue'
 import GearIcon from './icons/gear.svg.vue'
@@ -86,10 +87,19 @@ export default {
     <BroadcastIcon :counter="1" @click="showChat()"/>
   </g>
 
+  <g :transform="'translate(' + (screen.left + 60) + ' ' + (screen.bottom - 300)  + ')'">
+    <SpeakerIcon :disabled="true" @click=""/>
+  </g>
+
   <g :transform="'translate(0 ' + (screen.bottom - 80)  + ')'">
   <ZoomSlider transform="scale(1)" />
   </g>
 
+  <g class="noclick">
+    <g :transform="'translate(' + (screen.right - 100) + ' ' + (screen.top + 200)  + ')'">
+      <MiniMap />
+    </g>
+  </g>
 
   <g>
     <SubMenuPlanets :show="showPlanetsMenu" @close="showPlanetsMenu = false" />
@@ -105,4 +115,7 @@ export default {
 </template>
 
 <style scoped>
+  .noclick {
+    pointer-events: none;
+  }
 </style>

@@ -16,7 +16,11 @@ export default {
     counter: {
       type: Number,
       default: 0
-    }
+    },
+    disabled: {
+      type: Boolean,
+      default: false
+    },
   },
   computed: {
     fillColor: function() {
@@ -57,7 +61,7 @@ export default {
         stroke="#ffffff22"
         stroke-width="1"
         :fill="fillColor" />
-      <g :transform="'scale(' + scaleSize + ')'">
+      <g :transform="'scale(' + scaleSize + ')'" :opacity="disabled ? 0.25 : 1">
         <slot />
       </g>
     </g>
