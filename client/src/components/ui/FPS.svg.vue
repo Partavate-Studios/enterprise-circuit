@@ -29,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <g  :transform="'translate(' + (screen.right - 110) + '  ' + (screen.bottom - 40) + ')'">
+  <g  :transform="'translate(' + (screen.right - 210) + '  ' + (screen.bottom - 40) + ')'">
     <g transform="translate(0 -40)" font-weight="bold" font-size="15px" fill="#ffffff">
       <text>Time: {{ gameTimeInSeconds }} @ {{ clock.fps }} fps</text>
     </g>

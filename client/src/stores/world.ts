@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useAvatar } from '../stores/avatar'
+import { useAvatar } from './avatar'
 import { useGalaxy } from '../stores/galaxy'
 import { useClock } from '../stores/clock'
 import { useEVM } from '../stores/evm'
@@ -17,8 +17,6 @@ const moonDistance = 60
 const moonGap = 20
 
 const stationDistance = 25
-
-
 
 export const useWorld = defineStore('world', {
   state: () => {
@@ -96,10 +94,11 @@ export const useWorld = defineStore('world', {
     async loadFromNetwork() {
       let currentBlock = this.evm.block
       await Promise.all([
-        this.avatar.getAll(),
+        //this.avatar.getAll(),
         this.galaxy.getAll()
+        //get a list of avatars after loading the galaxy
       ])
-      await this.avatar.preloadForAddresses(
+      await this.avatar.setAvatarsByAddresses(
         this.galaxy.knownAddresses
       )
       this.lastBlockLoaded = currentBlock
@@ -228,7 +227,10 @@ export const useWorld = defineStore('world', {
     async loadEntities() {
       this.isLoading = true
       await Promise.all([
-        this.avatar.getAll(),
+        this.avatar.setAvatarCount(),
+        this.avatar.setHaveAvatar(),
+        this.avatar.setMyAvatarName(),
+        this.avatar.setMyAvatarId(),
         this.galaxy.getAll()
       ])
 

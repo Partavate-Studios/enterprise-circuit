@@ -30,7 +30,7 @@ export default {
     if (this.isConnected) {
       await this.loadChainData()
     }
-    if (!this.world.avatar.haveAvatar) {
+    if (!this.world.avatar.playerHasAvatar) {
       this.ui.changeMenu('avatar')
     } else if (!this.world.galaxy.haveShip) {
       this.ui.changeMenu('ship')
@@ -66,7 +66,7 @@ export default {
 </script>
 
 <template>
-  <RegisterAvatar v-if="!world.avatar.haveAvatar" />
+  <RegisterAvatar v-if="!world.avatar.playerHasAvatar" />
   <RegisterShip v-else-if="!world.galaxy.haveShip" />
   <g v-else-if="world.isLoaded">
     <World />

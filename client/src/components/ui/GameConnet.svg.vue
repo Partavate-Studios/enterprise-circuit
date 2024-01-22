@@ -113,7 +113,7 @@ export default {
 
     <g v-if="avatar.isLoaded && galaxy.isLoaded" transform="translate(0 120)">
 
-      <g v-if="world.avatar.haveAvatar">
+      <g v-if="world.avatar.playerHasAvatar">
         <g font-size="28px" transform="translate(0 0)">
           <text transform="translate(-5 0)" fill="#aaaaaa">Welcome back {{  avatar.chainstate.myAvatarName  }}.</text>
           <text transform="translate(5 0)" text-anchor="start"></text>

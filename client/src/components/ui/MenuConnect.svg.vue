@@ -95,12 +95,12 @@ export default {
 
   <g v-if="!evm.isConnected">
     <g :transform="'translate(0 ' + (screen.top + 120)  + ')'">
-      <connectionIndicator 
+      <connectionIndicator
         :walletConnected="evm.hasWallet"
         :networkConnected="false"
       />
     </g>
-    
+
       <g transform="translate(-250 -250)">
       <g>
         <rect
@@ -198,7 +198,7 @@ export default {
           <text>With {{  world.avatar.chainstate.avatarCount  }} players exploring {{  world.galaxy.chainstate.systemCount }} star systems.</text>
         </g>
 
-        <g v-if="world.avatar.haveAvatar" text-anchor="start">
+        <g v-if="world.avatar.playerHasAvatar" text-anchor="start">
           <g transform="translate(-250 110)">
             <text>Welcome back {{  world.avatar.chainstate.myAvatarName  }}.</text>
           </g>

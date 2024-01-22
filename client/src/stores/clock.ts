@@ -3,13 +3,15 @@ import { defineStore } from 'pinia'
 /*******************************
  * Provides a global game clock with
  * - adjustable frequency
- * - ability to pause
+ * - ability to pause & resume
+ * todo:
+ * - rewind & playback
  *******************************/
 
 export const useClock = defineStore('clock', {
   state: () => ({
     gameClock: Date.now(),
-    updateFrequency: 18,
+    updateFrequency: 24,
     //40.2 ~= 24fpx
     //33.6 = 30fps
     //16.6 = 60fps

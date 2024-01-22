@@ -13,13 +13,17 @@ export const useAvatar = defineStore('avatar', {
       evm: useEVM() as any,
       isLoaded: false,
       isLoading: false,
-      knownAvatars: {} as any,
-      addressToName: {} as any,
+
       chainstate: {
+        haveAvatar: false as boolean,
+
+        avatarsById: [] as string[],
+        avatarsByAddress: [] as string[],
+
         myAvatarId: null,
         myAvatarName: null,
+
         avatarCount: null as number | null,
-        haveAvatar: false as boolean
       },
     }
   },
@@ -33,23 +37,27 @@ export const useAvatar = defineStore('avatar', {
     isConnected():boolean {
       return this.contract.isConnected
     },
-    haveAvatar():boolean {
+    playerHasAvatar():boolean {
       return this.chainstate.haveAvatar
     },
-    me():object {
+    player():object {
       return {
+        registered: this.chainstate.haveAvatar,
         name: this.chainstate.myAvatarName,
         address: this.evm.signerAddress,
         id: this.chainstate.myAvatarId
       }
-    }
+    },
+    namesById():string[] {
+      return this.chainstate.avatarsById
+    },
+    namesByAddress():string[] {
+      return this.chainstate.avatarsByAddress
+    },
   },
   actions: {
-    async connect() {
-    },
 
     //controls
-
     async createAvatar(
       name:string,
       callbackSuccess:Function = ()=>{},
@@ -65,58 +73,61 @@ export const useAvatar = defineStore('avatar', {
       )
     },
 
-    //setters
-
-    async getAll() {
+    //setters (from network)
+    async setAll() {
       if (this.isLoading) {
         return
       }
       this.isLoading = true
       await Promise.all([
-        this.getAvatarCount(),
-        this.getMyAvatarName(),
-        this.getMyAvatarId(),
-        this.getHaveAvatar()
+        this.setAvatarCount(),
+        this.setMyAvatarName(),
+        this.setMyAvatarId(),
+        this.setHaveAvatar()
       ])
       this.isLoaded = true
       this.isLoading = false
     },
 
-    async preloadForAddresses(addresses:[]) {
-      for(let n = 0; n < addresses.length; n++) {
-        this.addressToName[addresses[n]] = await this.getAvatarNameByAddress(addresses[n])
+    async setAvatarsByAddresses(addresses:string[number]) {
+      for(let n:number = 0; n < addresses.length; n++) {
+        await this.setAvatarByAddress[addresses[n]]
       }
     },
 
-    async getAllAvatars() {
-      for (let n = 0; n < this.chainstate.avatarCount; n++) {
-        console.log(n)
-        this.getAvatarNameById(n)
-      }
+    async setAvatarByAddress(address:string) {
+
+      this.chainstate.avatarsByAddress[address] = await
+        this.getAvatarNameByAddress(address)
     },
 
-    async getAvatarCount() {
+    async setAvatarById(id:string) {
+      this.chainstate.avatarsById[id] = await
+        this.getAvatarNameById(id)
+    },
+
+    async setAvatarCount() {
       this.chainstate.avatarCount = await this.contract.read(
         'getAvatarCount'
       )
     },
-    async getMyAvatarName() {
+    async setMyAvatarName() {
       this.chainstate.myAvatarName = await this.contract.read(
         'getMyAvatarName'
       )
     },
-    async getMyAvatarId(){
+    async setMyAvatarId(){
       this.chainstate.myAvatarId = await this.contract.read(
         'getMyAvatarId'
       )
     },
-    async getHaveAvatar(){
+    async setHaveAvatar(){
       this.chainstate.haveAvatar = await this.contract.read(
         'haveAvatar'
       )
     },
 
-    //getters
+    //getters (return a value directly)
 
     async getAvatarIdByAddress(address:string) {
       const avatar = await this.contract.read(
@@ -125,12 +136,11 @@ export const useAvatar = defineStore('avatar', {
       )
       return avatar
     },
-    async getAvatarNameById(id:number) {
+    async getAvatarNameById(id:string) {
       const avatar = await this.contract.read(
         'getAvatarNameById',
         [id]
       )
-      this.knownAvatars[id] = avatar
       return avatar
     },
     async getAvatarNameByAddress(address:string) {

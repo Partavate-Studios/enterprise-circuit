@@ -56,7 +56,7 @@ export default {
               @click="ui.changeMenu('connect')"
               />
             </g>
-          <g v-else-if="!world.avatar.haveAvatar">
+          <g v-else-if="!world.avatar.playerHasAvatar">
             <btn
               fill="#ffffff"
               :width="520"

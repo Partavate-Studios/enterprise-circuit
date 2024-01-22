@@ -23,13 +23,7 @@ export default {
       return this.world.sprites[this.shipIndex]
     },
     owner():string {
-      let ownerAddress = this.ship.owner
-      console.log('finding owner')
-      console.log(JSON.stringify(this.world.avatar.addressToName))
-      if (this.world.avatar.addressToName[ownerAddress]) {
-       return this.world.avatar.addressToName[ownerAddress]
-      }
-      return ownerAddress
+      return this.world.avatar.namesByAddress[this.ship.owner] ??= this.ship.owner
     },
     orbiting():string {
       let parentSprite = this.world.sprites[this.ship.orbit.parent]
