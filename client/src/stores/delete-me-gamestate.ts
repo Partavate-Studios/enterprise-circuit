@@ -23,6 +23,7 @@ export const useWorld = defineStore('gamestate', {
 	},
 	actions: {
 		async loadFromNetwork() {
+			console.log('should not be called')
 			let currentBlock = this.evm.block
 			await Promise.all([
 				//this.avatar.getAll(),

@@ -35,16 +35,19 @@ export function useContract(contractName: string, contractABI: any) {
 		console.log(contractName + ' connected')
 	}
 
-	watch(currentChainId, () => {
-		if (!isConnected.value && evm.isSuppportedNetwork) {
-			connect()
-		}
-	})
+	watch(
+		() => evm.isConnected,
+		() => {
+			if (!isConnected.value && evm.isSuppportedNetwork && evm.isConnected) {
+				connect()
+			}
+		},
+	)
 
 	//todo: should return package with error codes
 	async function readContract(contractMethod: string, params: any[] = []) {
 		if (!isConnected.value) {
-			return
+			throw new Error('Not connected')
 		}
 		try {
 			const result = await contract[`${contractMethod}`](...params)
@@ -85,10 +88,6 @@ export function useContract(contractName: string, contractABI: any) {
 				console.log('Error: ', e)
 			}
 		}
-	}
-
-	if (evm.isSuppportedNetwork) {
-		connect()
 	}
 
 	return {

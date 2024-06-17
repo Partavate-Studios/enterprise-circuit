@@ -1,9 +1,145 @@
 import { defineStore } from 'pinia'
-import { ethers } from 'ethers'
+import { ethers, formatEther } from 'ethers'
 import deployments from '../../libraries/galactic/networkDeployments'
 import networks from '../../libraries/galactic/networkDetails'
+import { EIP1193Provider, useVueDapp } from '@vue-dapp/core'
+import { computed, markRaw, ref } from 'vue'
+import { useVueDappModal } from '@vue-dapp/modal'
 
-export const useEVM = defineStore('wallet', {
+export const useEVM = defineStore('wallet', () => {
+	const provider = ref<ethers.BrowserProvider | null>(null)
+	const signer = ref<ethers.JsonRpcSigner | null>(null)
+	const balance = ref(0.0)
+	const hasWallet = ref(false)
+	const block = ref<number | null>(null)
+
+	const { wallet, isConnected } = useVueDapp()
+
+	// ====================== getters ======================
+
+	const signerAddress = computed(() => signer.value?.address || '')
+
+	const chainName = computed(() => {
+		if (!wallet.chainId) return 'unknown network'
+		if (networks.hasOwnProperty(wallet.chainId)) {
+			return networks[wallet.chainId].name
+		}
+		return 'unknown network'
+	})
+
+	const isSuppportedNetwork = computed(() => {
+		if (!wallet.chainId) return false
+		return deployments.hasOwnProperty(wallet.chainId)
+	})
+
+	const shortSigner = computed(() => {
+		const length = signerAddress.value.length
+		if (length >= 8) {
+			return signerAddress.value.substring(0, 5) + '...' + signerAddress.value.substring(length - 3)
+		}
+		return signerAddress.value
+	})
+
+	const currencyData = computed(() => {
+		if (!wallet.chainId) return null
+		if (networks.hasOwnProperty(wallet.chainId)) {
+			return networks[wallet.chainId].currency
+		}
+		return {
+			name: '',
+			symbol: '',
+			decimals: 18,
+		}
+	})
+
+	const faucets = computed(() => {
+		if (!wallet.chainId) return []
+		if (networks.hasOwnProperty(wallet.chainId)) {
+			return networks[wallet.chainId].faucets
+		}
+		return []
+	})
+
+	const explorer = computed(() => {
+		if (!wallet.chainId) return ''
+		if (networks.hasOwnProperty(wallet.chainId)) {
+			return networks[wallet.chainId].explorer
+		}
+		return ''
+	})
+
+	// ============================== methods ==============================
+
+	async function connect() {
+		const { open } = useVueDappModal()
+		open()
+	}
+
+	async function setWallet(p: EIP1193Provider) {
+		provider.value = markRaw(new ethers.BrowserProvider(p))
+		signer.value = markRaw(await provider.value.getSigner())
+		hasWallet.value = true
+
+		provider.value.on('block', (blockNumber: number) => {
+			block.value = blockNumber
+		})
+	}
+
+	function resetWallet() {
+		provider.value = null
+		signer.value = null
+		hasWallet.value = false
+	}
+
+	async function getBalance() {
+		if (!provider.value) return
+		let bal = await provider.value.getBalance(signerAddress.value)
+		balance.value = Number(formatEther(bal))
+	}
+
+	async function switchNetwork(chainId: number) {
+		// todo
+	}
+
+	async function getContract(address: string, abi: any) {
+		if (!signer.value) {
+			throw new Error('No signer found')
+		}
+		const contract = new ethers.Contract(address, abi, signer.value)
+		return contract
+	}
+
+	return {
+		...useVueDapp(),
+		chainId: computed(() => wallet.chainId || null),
+		isConnected: computed(() => {
+			return isConnected.value && !!signer.value
+		}),
+
+		provider,
+		signer,
+		balance,
+		hasWallet,
+		block,
+
+		signerAddress,
+		chainName,
+		isSuppportedNetwork,
+		shortSigner,
+		currencyData,
+		faucets,
+		explorer,
+
+		connect,
+		setWallet,
+		resetWallet,
+		getBalance,
+		switchNetwork,
+		getContract,
+	}
+})
+
+export const useEVMDeprecated = defineStore('wallet', {
 	state: () => {
 		return {
 			isConnected: false,
@@ -46,7 +182,7 @@ export const useEVM = defineStore('wallet', {
 				decimals: 18,
 			}
 		},
-		facuets(): string {
+		faucets(): string {
 			if (networks.hasOwnProperty(this.chainId)) {
 				return networks[this.chainId].faucets
 			}

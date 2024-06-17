@@ -49,6 +49,9 @@ export const useGalaxy = defineStore('galaxy', {
 		//views
 
 		async getAll() {
+			if (!this.contract.isConnected) {
+				throw new Error('Wallet is not connected')
+			}
 			if (this.isLoading) {
 				return
 			}
@@ -66,6 +69,7 @@ export const useGalaxy = defineStore('galaxy', {
 			this.isLoading = false
 		},
 		async getPlayerSystemData() {
+			console.log('getPlayerSystemData', await this.contract.read('getPlayerSystemData'))
 			;[
 				this.chainstate.systemData.id,
 				this.chainstate.systemData.name,
@@ -181,7 +185,7 @@ export const useGalaxy = defineStore('galaxy', {
 		async getMyShip() {
 			;[
 				this.chainstate.ship.name,
-				this.chainstate.ship.systemId,
+				this.chainstate.ship.systemId, // this is bigint
 				this.chainstate.ship.orbit,
 				this.chainstate.ship.cargoLimit,
 				this.chainstate.ship.equipment,

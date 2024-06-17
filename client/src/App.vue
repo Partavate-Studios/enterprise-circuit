@@ -14,6 +14,25 @@ import UI from './components/UI.svg.vue'
 import { useRouting } from './stores/routing'
 import { useClock } from './stores/clock'
 
+import { BrowserWalletConnector, ConnWallet, useVueDapp } from '@vue-dapp/core'
+import { VueDappModal } from '@vue-dapp/modal'
+import '@vue-dapp/modal/dist/style.css'
+import { useEVM } from './stores/evm'
+
+const { addConnectors, watchWalletChanged, watchDisconnect } = useVueDapp()
+
+addConnectors([new BrowserWalletConnector()])
+
+const { setWallet, resetWallet } = useEVM()
+
+watchWalletChanged(async (wallet: ConnWallet) => {
+	setWallet(wallet.provider)
+})
+
+watchDisconnect(() => {
+	resetWallet()
+})
+
 const routing = useRouting()
 const clock = useClock()
 clock.play()
@@ -35,6 +54,8 @@ clock.play()
 
 		<UI />
 	</svgContainer>
+
+	<VueDappModal dark />
 </template>
 
 <style lang="scss">

@@ -58,6 +58,7 @@ export default {
 		},
 		async loadChainData() {
 			this.evm.getBalance()
+			await this.galaxy.connect() // should confirm that useContract isConnected is true
 			this.world.loadEntities()
 		},
 	},

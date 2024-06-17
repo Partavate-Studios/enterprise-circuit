@@ -187,8 +187,8 @@ export default {
 							<text transform="translate(-50 -5)" text-anchor="end" fill="#aaaaaa"
 								>Get more {{ evm.currencyData.symbol }}:</text
 							>
-							<g v-if="evm.facuets.length > 0">
-								<g v-for="(faucet, index) in evm.facuets">
+							<g v-if="evm.faucets.length > 0">
+								<g v-for="(faucet, index) in evm.faucets">
 									<btn
 										:transform="'translate(' + 90 + ' ' + index * 35 + ')'"
 										:width="250"
