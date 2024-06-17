@@ -16,42 +16,38 @@ import { useWorld } from '../stores/world'
 
 <script lang="ts">
 export default {
-  data() {
-    return {
-      ui: useUI(),
-      world: useWorld(),
-    }
-  },
-  mounted() {
-  },
-  methods: {
-  }
+	data() {
+		return {
+			ui: useUI(),
+			world: useWorld(),
+		}
+	},
+	mounted() {},
+	methods: {},
 }
 </script>
 
 <template>
-  <g v-if="ui.showMenu">
-    <MenuTitle  v-if="ui.menu == 'title'" />
-    <MenuSettings  v-if="ui.menu == 'settings'" />
-    <MenuConnect  v-if="ui.menu == 'connect'" />
-    <MenuAvatar  v-if="ui.menu == 'avatar'" />
-    <MenuShip  v-if="ui.menu == 'ship'" />
-    <MenuGame  v-if="ui.menu == 'game'" />
-  </g>
+	<g v-if="ui.showMenu">
+		<MenuTitle v-if="ui.menu == 'title'" />
+		<MenuSettings v-if="ui.menu == 'settings'" />
+		<MenuConnect v-if="ui.menu == 'connect'" />
+		<MenuAvatar v-if="ui.menu == 'avatar'" />
+		<MenuShip v-if="ui.menu == 'ship'" />
+		<MenuGame v-if="ui.menu == 'game'" />
+	</g>
 
-  <g v-if="ui.menu != 'connect'">
-    <EVMStatus />
-  </g>
+	<g v-if="ui.menu != 'connect'">
+		<EVMStatus />
+	</g>
 
-  <g v-if="ui.showFPS">
-    <FPS />
-  </g>
+	<g v-if="ui.showFPS">
+		<FPS />
+	</g>
 
-  <g v-if="ui.showDebug">
-    <Debug />
-  </g>
-
+	<g v-if="ui.showDebug">
+		<Debug />
+	</g>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
