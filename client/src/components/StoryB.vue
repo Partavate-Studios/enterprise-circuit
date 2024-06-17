@@ -3,21 +3,17 @@ import TweenDemo from './storyboard-panels/TweenDemo.svg.vue'
 </script>
 
 <script lang="ts">
-export default {
-}
+export default {}
 </script>
 
 <template>
-
-    <g>
-      <TweenDemo />
-    </g>
-
+	<g>
+		<TweenDemo />
+	</g>
 </template>
 
 <style scoped>
-
 .smooth {
-  transition: 0.25s ease-out;
+	transition: 0.25s ease-out;
 }
 </style>

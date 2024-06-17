@@ -3,10 +3,9 @@ import LogoPartavate from '../graphics/LogoPartavate.svg.vue'
 </script>
 
 <template>
-<g fill="#ffffff">
-  <logo-partavate />
-</g>
+	<g fill="#ffffff">
+		<logo-partavate />
+	</g>
 </template>
 
-<style>
-</style>
+<style></style>

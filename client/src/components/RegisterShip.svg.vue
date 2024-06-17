@@ -5,36 +5,31 @@ import backdrop from './assets/sprites/SpaceBackground.svg.vue'
 
 <script lang="ts">
 export default {
-  data() {
-    return {
-      screen: useScreen(),
-    }
-  },
-  watch: {
-  },
-  async mounted () {
-  },
-  beforeDestroy() {
-  },
-  methods: {
-  },
-  computed: {
-  }
+	data() {
+		return {
+			screen: useScreen(),
+		}
+	},
+	watch: {},
+	async mounted() {},
+	beforeDestroy() {},
+	methods: {},
+	computed: {},
 }
 </script>
 
 <template>
-  <g transform="translate(0 0)">
-    <backdrop />
-    <rect
-      :x="screen.left" :y="screen.top"
-      :width="screen.width" :height="screen.height"
-      fill="#000000"
-      fill-opacity="0.5" />
-  </g>
+	<g transform="translate(0 0)">
+		<backdrop />
+		<rect
+			:x="screen.left"
+			:y="screen.top"
+			:width="screen.width"
+			:height="screen.height"
+			fill="#000000"
+			fill-opacity="0.5"
+		/>
+	</g>
 </template>
 
-<style scoped>
-
-
-</style>
+<style scoped></style>

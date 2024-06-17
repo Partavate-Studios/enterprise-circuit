@@ -14,72 +14,86 @@ import UI from './components/UI.svg.vue'
 import { useRouting } from './stores/routing'
 import { useClock } from './stores/clock'
 
+import { BrowserWalletConnector, ConnWallet, useVueDapp } from '@vue-dapp/core'
+import { VueDappModal } from '@vue-dapp/modal'
+import '@vue-dapp/modal/dist/style.css'
+import { useEVM } from './stores/evm'
+
+const { addConnectors, watchWalletChanged, watchDisconnect } = useVueDapp()
+
+addConnectors([new BrowserWalletConnector()])
+
+const { setWallet, resetWallet } = useEVM()
+
+watchWalletChanged(async (wallet: ConnWallet) => {
+	setWallet(wallet.provider)
+})
+
+watchDisconnect(() => {
+	resetWallet()
+})
+
 const routing = useRouting()
 const clock = useClock()
 clock.play()
-
 </script>
 
 <template>
+	<svgContainer>
+		<TitleScreen v-if="routing.is('title')" />
+		<TitleScreen v-if="routing.is('settings')" />
 
-  <svgContainer>
+		<Play v-if="routing.is('play')" />
 
-    <TitleScreen v-if="routing.is('title')"/>
-    <TitleScreen v-if="routing.is('settings')"/>
+		<StoryA v-if="routing.is('storya')" />
+		<StoryB v-if="routing.is('storyb')" />
+		<FourShips v-if="routing.is('four')" />
+		<AssetViewer v-if="routing.is('assets')" />
 
-    <Play v-if="routing.is('play')" />
+		<WindowView v-if="routing.is('window')" />
 
-    <StoryA v-if="routing.is('storya')" />
-    <StoryB v-if="routing.is('storyb')" />
-    <FourShips v-if="routing.is('four')"/>
-    <AssetViewer v-if="routing.is('assets')" />
+		<UI />
+	</svgContainer>
 
-
-    <WindowView v-if="routing.is('window')" />
-
-    <UI />
-
-  </svgContainer>
-
+	<VueDappModal dark />
 </template>
 
 <style lang="scss">
 body {
-  font-family: 'Ubuntu', sans-serif;
-  background: var(--color-bg);
-  color: var(--color-light);
+	font-family: 'Ubuntu', sans-serif;
+	background: var(--color-bg);
+	color: var(--color-light);
 
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  margin: 0;
-  padding: 0;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	margin: 0;
+	padding: 0;
 }
 #app {
-  text-align: center;
+	text-align: center;
 }
 .canclick:hover {
-  cursor: pointer;
+	cursor: pointer;
 }
 </style>
-
 
 <style lang="scss">
 //Default Theme
 :root {
-  --color-bg: #000000;
-  --color-text: #ffffff;
-  --color-btn-text: #000000;
+	--color-bg: #000000;
+	--color-text: #ffffff;
+	--color-btn-text: #000000;
 }
 
 //Orbiter 8 Theme
-[data-theme="orbiter8"] {
-  --color-bg: #000000;
-  --color-light: #c3b3da;
-  --color-btn: #ffffff;
+[data-theme='orbiter8'] {
+	--color-bg: #000000;
+	--color-light: #c3b3da;
+	--color-btn: #ffffff;
 }
 
 //Test Theme
-[data-theme="evil"] {
-  --color-bg: #440000;
+[data-theme='evil'] {
+	--color-bg: #440000;
 }
 </style>
